@@ -117,8 +117,8 @@ void SetupRendererForScreen(const gfxScreen_t screen) {
   bknd_data->boundTexture = nullptr;
 
   // Bind Shader
-  // C3D_BindProgram(&bknd_data->shader_program);
   shaderProgramUse(&bknd_data->shader_program);
+  C3D_BindProgram(&bknd_data->shader_program);
   C3D_SetAttrInfo(&bknd_data->attr_info);
 
   C3D_DepthTest(false, GPU_GREATER, GPU_WRITE_COLOR);
