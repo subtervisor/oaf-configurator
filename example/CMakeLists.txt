@@ -5,16 +5,9 @@ project(imgui_example)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
 
-find_program(TEX3DS NAMES tex3ds REQUIRED)
-
-execute_process(
-    COMMAND ${TEX3DS} -o "${CMAKE_CURRENT_SOURCE_DIR}/romfs/gfx/test.t3x" -i "${CMAKE_CURRENT_SOURCE_DIR}/gfx/test.t3s"
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-)
-
-set(APP_NAME "imgui_example")
-set(APP_DESC "ImGui 3ds Example using v1.89")
-set(APP_AUTHOR "npid7")
+set(APP_NAME "open_agb_firm configurator")
+set(APP_DESC "Configures open_agb_firm's ini settings")
+set(APP_AUTHOR "subtervisor")
 set(APP_ICON "${CMAKE_CURRENT_SOURCE_DIR}/app/icon.png")
 set(APP_ROMFS "${CMAKE_CURRENT_SOURCE_DIR}/romfs")
 
