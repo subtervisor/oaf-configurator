@@ -62,8 +62,8 @@ void ProcessTouch(ImGuiIO &io) {
 void ProcessInput(ImGuiIO &io) {
   auto const buttonMapping = {
       // clang-format off
-	    std::make_pair (KEY_A,      ImGuiKey_GamepadFaceDown),  // A and B are swapped
-	    std::make_pair (KEY_B,      ImGuiKey_GamepadFaceRight), // this is more intuitive
+	    std::make_pair (KEY_A,      ImGuiKey_GamepadFaceRight),
+	    std::make_pair (KEY_B,      ImGuiKey_GamepadFaceDown),
 	    std::make_pair (KEY_X,      ImGuiKey_GamepadFaceUp),
 	    std::make_pair (KEY_Y,      ImGuiKey_GamepadFaceLeft),
 	    std::make_pair (KEY_L,      ImGuiKey_GamepadL1),
