@@ -2,6 +2,10 @@
 
 A simple configuration UI for [open_agb_firm](https://github.com/profi200/open_agb_firm).
 
+## Screenshot
+
+<img width="400" height="480" alt="Screenshot of OAF Configurator" src="https://github.com/user-attachments/assets/13dbf5fc-9347-4ebe-9f89-7a6af39a7166" /> <img width="400" height="480" alt="Screenshot of OAF Configurator" src="https://github.com/user-attachments/assets/57083673-56c0-4aa9-bb94-5b63a5db1564" />
+
 ## Building
 
 ```
