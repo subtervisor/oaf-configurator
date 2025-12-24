@@ -1,19 +1,18 @@
-# imgui-impl-ctr
+# OAF Configurator
 
-ImGui for Nintendo 3ds...
+A simple configuration UI for [open_agb_firm](https://github.com/profi200/open_agb_firm).
 
-# Example
 ## Building
+
 ```
 git submodule update --init --recursive
-cd example
-make
+cmake -S. -Bbuild -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/3DS.cmake" -DCMAKE_BUILD_TYPE=Release -DIMGUI_CTR_BUILD_EXAMPLE=ON
+cmake --build build
 ```
-## Info
-The example is based on imgui v1.87 but you can use any other version ass well by just teting if it works...
-# TODO
-- [ ] Support ttf fonts/build font atlas
+
 # Credits
+- [NPI-D7](https://github.com/npid7) : created imgui-impl-ctr
 - [Tobi-D7](https://github.com/Tobi-D7) : make the code more imgui_impl like
 - [mtheall](https://github.com/mtheall) : ftpd's imgui code
 - [devkitpro](https://github.com/devkitPro) : libctru, citro3d 
+- [NPI-D7](https://github.com/npid7) : imgui-impl-ctr
