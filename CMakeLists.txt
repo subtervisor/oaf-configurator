@@ -17,9 +17,7 @@ function(__imgui_ctr_make_shader arg1 arg2)
     dkp_add_embedded_binary_library(${__NAME}_asm "${CMAKE_BINARY_DIR}/${__NAME}.shbin")
 endfunction()
 
-project(imgui-ctr VERSION 1.89.9)
-
-option(IMGUI_CTR_BUILD_EXAMPLE "Build with example" OFF)
+project(imgui-ctr VERSION 1.91.9)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
@@ -52,6 +50,4 @@ add_dependencies(imgui-ctr imgui_impl_c3d_asm)
 install(DIRECTORY include DESTINATION .)
 install(TARGETS imgui-ctr)
 
-if(${IMGUI_CTR_BUILD_EXAMPLE})
-    add_subdirectory(example)
-endif()
+add_subdirectory(app)

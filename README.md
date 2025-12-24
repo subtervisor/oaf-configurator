@@ -6,7 +6,7 @@ A simple configuration UI for [open_agb_firm](https://github.com/profi200/open_a
 
 ```
 git submodule update --init --recursive
-cmake -S. -Bbuild -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/3DS.cmake" -DCMAKE_BUILD_TYPE=Release -DIMGUI_CTR_BUILD_EXAMPLE=ON
+cmake -S. -Bbuild -DCMAKE_TOOLCHAIN_FILE="$DEVKITPRO/cmake/3DS.cmake" -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
 

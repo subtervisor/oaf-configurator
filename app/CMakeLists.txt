@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.22)
 
-project(imgui_example)
+project(OAFConfigurator)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
@@ -11,10 +11,10 @@ set(APP_AUTHOR "subtervisor")
 set(APP_ICON "${CMAKE_CURRENT_SOURCE_DIR}/app/icon.png")
 set(APP_ROMFS "${CMAKE_CURRENT_SOURCE_DIR}/romfs")
 
-add_executable(imgui_example
+add_executable(OAFConfigurator
     source/main.cpp
 )
-target_link_libraries(imgui_example PRIVATE
+target_link_libraries(OAFConfigurator PRIVATE
     m
     z
     ctru
@@ -24,7 +24,7 @@ target_link_libraries(imgui_example PRIVATE
 )
 
 
-target_compile_definitions(imgui_example PRIVATE
+target_compile_definitions(OAFConfigurator PRIVATE
 	IMGUI_DISABLE_OBSOLETE_FUNCTIONS=1
 	IMGUI_DISABLE_DEFAULT_SHELL_FUNCTIONS=1
 )
