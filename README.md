@@ -19,4 +19,3 @@ cmake --build build
 - [Tobi-D7](https://github.com/Tobi-D7) : make the code more imgui_impl like
 - [mtheall](https://github.com/mtheall) : ftpd's imgui code
 - [devkitpro](https://github.com/devkitPro) : libctru, citro3d 
-- [NPI-D7](https://github.com/npid7) : imgui-impl-ctr
