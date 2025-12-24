@@ -442,7 +442,7 @@ int main() {
                      ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
     if (ImGui::BeginMenuBar()) {
       if (ImGui::BeginMenu("Menu \xee\x80\x83")) {
-        if (ImGui::MenuItem("Save", "Ctrl+S")) {
+        if (ImGui::MenuItem("Save")) {
           try {
             std::filesystem::create_directories(iniDir);
             iniFile.write(iniPath);
@@ -451,7 +451,7 @@ int main() {
             logLines.push_back(std::format("Error while saving: {}", e.what()));
           }
         }
-        if (ImGui::MenuItem("Close", "Ctrl+W")) {
+        if (ImGui::MenuItem("Close")) {
           exit(0);
         }
         ImGui::EndMenu();
