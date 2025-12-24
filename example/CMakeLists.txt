@@ -5,7 +5,7 @@ project(imgui_example)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
 
-set(APP_NAME "open_agb_firm configurator")
+set(APP_NAME "OAF configurator")
 set(APP_DESC "Configures open_agb_firm's ini settings")
 set(APP_AUTHOR "subtervisor")
 set(APP_ICON "${CMAKE_CURRENT_SOURCE_DIR}/app/icon.png")
