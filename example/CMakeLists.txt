@@ -23,6 +23,12 @@ target_link_libraries(imgui_example PRIVATE
     imgui-ctr
 )
 
+
+target_compile_definitions(imgui_example PRIVATE
+	IMGUI_DISABLE_OBSOLETE_FUNCTIONS=1
+	IMGUI_DISABLE_DEFAULT_SHELL_FUNCTIONS=1
+)
+
 # Generate 3DSX
 ctr_generate_smdh(
     ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.smdh

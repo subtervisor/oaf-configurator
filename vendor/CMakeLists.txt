@@ -17,6 +17,10 @@ target_include_directories(imgui PUBLIC
     imgui
     imgui/misc/cpp
 )
+target_compile_definitions(imgui PRIVATE
+	IMGUI_DISABLE_OBSOLETE_FUNCTIONS=1
+	IMGUI_DISABLE_DEFAULT_SHELL_FUNCTIONS=1
+)
 
 install(TARGETS imgui)
 file(GLOB IMGUI_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/imgui/*.h")

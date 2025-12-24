@@ -42,6 +42,11 @@ target_link_libraries(imgui-ctr PUBLIC
     imgui_impl_c3d_asm
 )
 
+target_compile_definitions(imgui-ctr PRIVATE
+	IMGUI_DISABLE_OBSOLETE_FUNCTIONS=1
+	IMGUI_DISABLE_DEFAULT_SHELL_FUNCTIONS=1
+)
+
 add_dependencies(imgui-ctr imgui_impl_c3d_asm)
 
 install(DIRECTORY include DESTINATION .)

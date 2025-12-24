@@ -1,5 +1,7 @@
 // This Backend is heavily based on mtheall's ftpd citro3d and ctr
 // implementation Link: https://github.com/mtheall/ftpd/blob/master/source/3ds/
+#include "imgui_impl_ctr.h"
+
 #include <3ds.h>
 #include <stdint.h>
 
@@ -10,7 +12,6 @@
 #include <string>
 #include <tuple>
 
-#include "imgui_impl_ctr.h"
 #include "imgui_internal.h"
 
 #define TICKS_PER_MSEC 268111.856
@@ -32,12 +33,12 @@ static uint64_t last_time;
 static std::string clipboard;
 
 // Callbacks
-const char *getClippBoardText(void *const userData_) {
+const char *getClippBoardText(ImGuiContext *userData_) {
   (void)userData_;
   return clipboard.c_str();
 }
 
-void setClipboardText(void *const userData_, char const *const text_) {
+void setClipboardText(ImGuiContext *userData_, char const *const text_) {
   (void)userData_;
   clipboard = text_;
 }
@@ -130,8 +131,8 @@ void ProcessKeyboard(ImGuiIO &io) {
       swkbdInit(&kbd, SWKBD_TYPE_NORMAL, 2, -1);
       swkbdSetButton(&kbd, SWKBD_BUTTON_LEFT, "Cancel", false);
       swkbdSetButton(&kbd, SWKBD_BUTTON_RIGHT, "OK", true);
-      swkbdSetInitialText(&kbd, std::string(textState.InitialTextA.Data,
-                                            textState.InitialTextA.Size)
+      swkbdSetInitialText(&kbd, std::string(textState.TextToRevertTo.Data,
+                                            textState.TextToRevertTo.Size)
                                     .c_str());
       if (textState.Flags & ImGuiInputTextFlags_Password)
         swkbdSetPasswordMode(&kbd, SWKBD_PASSWORD_HIDE_DELAY);
@@ -155,6 +156,7 @@ void ProcessKeyboard(ImGuiIO &io) {
 // ImGui Impl Functions
 IMGUI_IMPL_API bool ImGui_ImplCtr_Init() {
   auto &io = ImGui::GetIO();
+  auto &pio = ImGui::GetPlatformIO();
 
   // Configuration
   io.ConfigFlags |= ImGuiConfigFlags_IsTouchScreen;
@@ -164,13 +166,19 @@ IMGUI_IMPL_API bool ImGui_ImplCtr_Init() {
   io.BackendFlags |= ImGuiBackendFlags_HasGamepad;
   io.BackendPlatformName = "imgui_impl_ctr";
 
+  // enable Nintendo button layout
+  io.ConfigNavSwapGamepadButtons = true;
+
   // Disable Cursor
   io.MouseDrawCursor = false;
 
+  // we only support touchscreen as mouse source
+  io.AddMouseSourceEvent(ImGuiMouseSource_TouchScreen);
+
   // Callbacks
-  io.SetClipboardTextFn = setClipboardText;
-  io.GetClipboardTextFn = getClippBoardText;
-  io.ClipboardUserData = nullptr;
+  pio.Platform_SetClipboardTextFn = setClipboardText;
+  pio.Platform_GetClipboardTextFn = getClippBoardText;
+  pio.Platform_ClipboardUserData = nullptr;
 
   return true;
 }

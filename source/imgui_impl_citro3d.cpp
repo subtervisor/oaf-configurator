@@ -1,6 +1,8 @@
 // This Backend is heavily based on mtheall's ftpd citro3d and ctr
 // implementation Link: https://github.com/mtheall/ftpd/blob/master/source/3ds/
 // Shader
+#include "imgui_impl_citro3d.h"
+
 #include <3ds.h>
 #include <citro3d.h>
 
@@ -13,7 +15,6 @@
 #include <vector>
 
 #include "imgui_impl_c3d_shbin.h"
-#include "imgui_impl_citro3d.h"
 
 #ifdef IM_IMPL_C3D_NPI_ASSERT
 #define NPI_ASSERT(expr)                                                  \
@@ -323,7 +324,8 @@ IMGUI_IMPL_API bool ImGui_ImplCitro3D_Init(bool load_sysfont) {
   // add config and font to atlas
   atlas->ConfigData.push_back(config);
   atlas->Fonts.push_back(imFont);
-  atlas->SetTexID(bknd_data->FontTextures.data());
+  atlas->SetTexID(
+      reinterpret_cast<ImTextureID>(bknd_data->FontTextures.data()));
 
   // initialize font
   imFont->FallbackAdvanceX = fontInfo->defaultWidth.charWidth;
@@ -539,7 +541,7 @@ IMGUI_IMPL_API void ImGui_ImplCitro3D_RenderDrawData(ImDrawData* draw_data,
           }
 
           // Check if Bound Texture needs to be updated
-          auto tex = static_cast<C3D_Tex*>(cmd.TextureId);
+          auto tex = reinterpret_cast<C3D_Tex*>(cmd.TextureId);
           if (tex == bknd_data->FontTextures.data()) {
             NPI_ASSERT(cmd.ElemCount % 3 == 0);
 
