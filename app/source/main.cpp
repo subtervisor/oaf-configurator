@@ -399,6 +399,24 @@ int main() {
       std::format("Model: {}", models[modelId]),
       std::string(iniLoaded ? "Loaded configuration from SD."
                             : "No configuration found, creating one.")};
+  auto const width = SCREEN_WIDTH;
+  auto const height = SCREEN_HEIGHT;
+  auto const halfHeight = height * 0.5f;
+  auto const topOffset = ImVec2(0, 0);
+  auto const topSize = ImVec2(width, halfHeight);
+  auto const bottomOffset = ImVec2(width * 0.1f, halfHeight);
+  auto const bottomSize = ImVec2(width * 0.8f, halfHeight);
+
+  // Get initial values
+  int backlight = iniFile["general"].get<int>("backlight");
+  int backlightSteps = iniFile["general"].get<int>("backlightSteps");
+  bool directBoot = iniFile["general"].get<bool>("directBoot");
+  bool useGbaDb = iniFile["general"].get<bool>("useGbaDb");
+  bool useSavesFolder = iniFile["general"].get<bool>("useSavesFolder");
+  float contrast = iniFile["video"].get<float>("contrast");
+  float brightness = iniFile["video"].get<float>("brightness");
+  float saturation = iniFile["video"].get<float>("saturation");
+  bool saveOverride = iniFile["advanced"].get<bool>("saveOverride");
 
   while (aptMainLoop()) {
     hidScanInput();
@@ -411,30 +429,24 @@ int main() {
     // setup display metrics
     io.DisplaySize = ImVec2(SCREEN_WIDTH, SCREEN_HEIGHT);
     io.DisplayFramebufferScale = ImVec2(FB_SCALE, FB_SCALE);
-    auto const width = io.DisplaySize.x;
-    auto const height = io.DisplaySize.y;
     ImGui_ImplCitro3D_NewFrame();
     ImGui_ImplCtr_NewFrame();
     ImGui::NewFrame();
-    auto halfHeight = height * 0.5f;
-
-    auto topOffset = ImVec2(0, 0);
-    auto topSize = ImVec2(width, halfHeight);
     ImGui::SetNextWindowPos(topOffset, ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(topSize);
     ImGui::Begin("Logs", nullptr,
                  ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove |
                      ImGuiWindowFlags_NoResize);
+
     for (const auto& logLine : logLines) {
       ImGui::Text(logLine.c_str());
     }
+
     // auto-scroll if scroll bar is at end
     if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
       ImGui::SetScrollHereY(1.0f);
     ImGui::End();
 
-    auto bottomOffset = ImVec2(width * 0.1f, halfHeight);
-    auto bottomSize = ImVec2(width * 0.8f, halfHeight);
     ImGui::SetNextWindowPos(bottomOffset, ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(bottomSize);
     ImGui::Begin("open_agb_firm configurator", nullptr,
@@ -461,29 +473,24 @@ int main() {
 
     ImGui::Text("General Settings");
     ImGui::Separator();
-    int backlight = iniFile["general"].get<int>("backlight");
     if (ImGui::SliderInt("Backlight", &backlight, is_new3ds() ? 16 : 20,
                          is_new3ds() ? 142 : 117, "%d",
                          ImGuiSliderFlags_AlwaysClamp)) {
       iniFile["general"].set<int>("backlight", backlight);
     }
-    int backlightSteps = iniFile["general"].get<int>("backlightSteps");
     if (ImGui::SliderInt("Backlight Steps", &backlightSteps, 1, 128, "%d",
                          ImGuiSliderFlags_AlwaysClamp)) {
       iniFile["general"].set<int>("backlightSteps", backlightSteps);
     }
 
-    bool directBoot = iniFile["general"].get<bool>("directBoot");
     if (ImGui::Checkbox("Direct Boot", &directBoot)) {
       iniFile["general"].set<bool>("directBoot", directBoot);
     }
 
-    bool useGbaDb = iniFile["general"].get<bool>("useGbaDb");
     if (ImGui::Checkbox("Use GBA DB", &useGbaDb)) {
       iniFile["general"].set<bool>("useGbaDb", useGbaDb);
     }
 
-    bool useSavesFolder = iniFile["general"].get<bool>("useSavesFolder");
     if (ImGui::Checkbox("Use Saves Folder", &useSavesFolder)) {
       iniFile["general"].set<bool>("useSavesFolder", useSavesFolder);
     }
@@ -504,19 +511,16 @@ int main() {
           "colorProfile", std::string(profileOptionsRaw[profileIndex]));
     }
 
-    float contrast = iniFile["video"].get<float>("contrast");
     if (ImGui::SliderFloat("Contrast", &contrast, 0.0, 1.0, "%.3f",
                            ImGuiSliderFlags_AlwaysClamp)) {
       iniFile["video"].set<float>("contrast", contrast);
     }
 
-    float brightness = iniFile["video"].get<float>("brightness");
     if (ImGui::SliderFloat("Brightness", &brightness, 0.0, 1.0, "%.3f",
                            ImGuiSliderFlags_AlwaysClamp)) {
       iniFile["video"].set<float>("brightness", brightness);
     }
 
-    float saturation = iniFile["video"].get<float>("saturation");
     if (ImGui::SliderFloat("Saturation", &saturation, 0.0, 1.0, "%.3f",
                            ImGuiSliderFlags_AlwaysClamp)) {
       iniFile["video"].set<float>("saturation", saturation);
@@ -554,7 +558,6 @@ int main() {
     ImGui::Text("Advanced");
     ImGui::Separator();
 
-    bool saveOverride = iniFile["advanced"].get<bool>("saveOverride");
     if (ImGui::Checkbox("Use save type override menu on ROM load",
                         &saveOverride)) {
       iniFile["advanced"].set<bool>("saveOverride", saveOverride);
